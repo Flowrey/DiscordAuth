@@ -18,6 +18,8 @@
 
 namespace WSOAuth;
 
+use MediaWiki\User\UserIdentity;
+use MediaWiki\Extension\PluggableAuth\Hook\PluggableAuthUserAuthorization;
 use MediaWiki\Preferences\Hook\GetPreferencesHook;
 use MWException;
 use OOUI\ButtonWidget;
@@ -25,7 +27,8 @@ use RequestContext;
 use SpecialPage;
 use User;
 
-class WSOAuthHooks implements GetPreferencesHook {
+class WSOAuthHooks implements GetPreferencesHook, PluggableAuthUserAuthorization
+{
 
 	/**
 	 * Modify user preferences.
@@ -35,21 +38,29 @@ class WSOAuthHooks implements GetPreferencesHook {
 	 *
 	 * @throws MWException
 	 */
-	public function onGetPreferences( $user, &$preferences ) {
+	public function onGetPreferences($user, &$preferences)
+	{
 		RequestContext::getMain()->getOutput()->enableOOUI();
-		$preferences_default = new ButtonWidget( [
-			'href' => SpecialPage::getTitleFor( 'WSOAuthConnectRemote' )->getLinkURL(),
-			'label' => wfMessage( 'wsoauth-manage-remotes' )->plain()
-		] );
+		$preferences_default = new ButtonWidget([
+			'href' => SpecialPage::getTitleFor('WSOAuthConnectRemote')->getLinkURL(),
+			'label' => wfMessage('wsoauth-manage-remotes')->plain()
+		]);
 
-		$preferences += [ 'wsoauth-prefs-manage-remote' =>
+		$preferences += [
+			'wsoauth-prefs-manage-remote' =>
 			[
 				'section' => 'personal/info',
 				'label-message' => 'wsoauth-prefs-manage-remote',
 				'type' => 'info',
 				'raw' => true,
-				'default' => (string)$preferences_default
+				'default' => (string) $preferences_default
 			],
 		];
+	}
+	public function onPluggableAuthUserAuthorization(UserIdentity $user, bool &$authorized): bool
+	{
+		// TODO: Implement logic here
+		$authorized = false;
+		return $authorized;
 	}
 }
