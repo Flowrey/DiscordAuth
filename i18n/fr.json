@@ -11,7 +11,7 @@
 	"wsoauth-desc": "Étend l’extension PluggableAuth pour fournir une authentification utilisant OAuth.",
 	"wsoauth-auth-providers-desc": "Un tableau contenant une liste personnalisée de fournisseurs OAuth, conjointement avec leur nom de classe.",
 	"wsoauth-auto-populate-groups-desc": "Un tableau contenant une liste de noms des groupes MediaWiki qui doivent être automatiquement affectés à l’utilisateur après s’être authentifié.",
-	"wsoauth-authentication-failure": "Échec d’authentification (êtes-vous autorisé pour ce wiki ?).",
+	"wsoauth-authentication-failure": "Échec d’authentification (êtes-vous autorisé pour ce wiki ?).",
 	"wsoauth-invalid-username": "Le nom d’utilisateur donné par le fournisseur OAuth est incorrect.",
 	"wsoauth-unknown-auth-provider-class-exception-message": "La classe du fournisseur OAuth n’a pas été chargée ni trouvée",
 	"wsoauth-unknown-auth-provider-exception-message": "Fournisseur OAuth inconnu ($1)",
@@ -23,7 +23,7 @@
 	"wsoauth-already-logged-in-through-remote": "Vous êtes déjà connecté via un compte distant ou migré. Vous ne pouvez pas connecter un compte distant pour ce compte. Si vous voulez vous connecter en utilisant un autre compte distant, veuillez vous déconnecter et vous reconnecter en utilisant l’autre compte.",
 	"wsoauth-remote-only-accounts-disabled": "La connexion à distance seulement a été désactivée sur ce wiki. Un compte distant doit être connecté à un compte local.",
 	"wsoauth-special-page-content": "Vous pouvez connecter un compte distant à ce compte en vous identifiant sur le compte distant depuis [[Special:UserLogin]] alors que vous êtes connecté ici. À l’avenir, il sera possible de gérer vos comptes distants depuis cette page spéciale.",
-	"wsoauth-prefs-manage-remote": "Comptes distants :",
+	"wsoauth-prefs-manage-remote": "Comptes distants :",
 	"wsoauth-missing-uri": "Aucune URI distante n’est configurée.",
 	"wsoauth-missing-client-id": "Aucun identifiant de client n’est configuré.",
 	"wsoauth-missing-client-secret": "Aucun secret de client n’est configuré.",
@@ -32,5 +32,6 @@
 	"wsoauth-could-not-create-mapping": "Impossible de créer la correspondance.",
 	"wsoauth-login-button-label-wikipedia": "Connexion avec Wikipédia",
 	"wsoauth-login-button-label-wikimedia": "Connexion avec Wikimedia",
-	"wsoauth-login-button-label-facebook": "Connexion avec Facebook"
+	"wsoauth-login-button-label-facebook": "Connexion avec Facebook",
+	"wsoauth-login-button-label-discord": "Connexion avec Discord"
 }

@@ -33,6 +33,7 @@ use RequestContext;
 use User;
 use WSOAuth\AuthenticationProvider\AuthProvider;
 use WSOAuth\AuthenticationProvider\FacebookAuth;
+use WSOAuth\AuthenticationProvider\DiscordAuth;
 use WSOAuth\AuthenticationProvider\MediaWikiAuth;
 use WSOAuth\Exception\ContinuationException;
 use WSOAuth\Exception\FinalisationException;
@@ -54,7 +55,8 @@ class WSOAuth extends PluggableAuth {
 	public const MAPPING_TABLE_NAME = 'wsoauth_multiauth_mappings';
 	public const DEFAULT_AUTH_PROVIDERS = [
 		"mediawiki" => MediaWikiAuth::class,
-		"facebook" => FacebookAuth::class
+		"facebook" => FacebookAuth::class,
+		"discord" => DiscordAuth::class
 	];
 
 	/**
