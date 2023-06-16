@@ -18,8 +18,6 @@
 
 namespace WSOAuth;
 
-use MediaWiki\User\UserIdentity;
-use MediaWiki\Extension\PluggableAuth\Hook\PluggableAuthUserAuthorization;
 use MediaWiki\Preferences\Hook\GetPreferencesHook;
 use MWException;
 use OOUI\ButtonWidget;
@@ -27,7 +25,7 @@ use RequestContext;
 use SpecialPage;
 use User;
 
-class WSOAuthHooks implements GetPreferencesHook, PluggableAuthUserAuthorization
+class WSOAuthHooks implements GetPreferencesHook
 {
 
 	/**
@@ -56,11 +54,5 @@ class WSOAuthHooks implements GetPreferencesHook, PluggableAuthUserAuthorization
 				'default' => (string) $preferences_default
 			],
 		];
-	}
-	public function onPluggableAuthUserAuthorization(UserIdentity $user, bool &$authorized): bool
-	{
-		// TODO: Implement logic here
-		$authorized = false;
-		return $authorized;
 	}
 }

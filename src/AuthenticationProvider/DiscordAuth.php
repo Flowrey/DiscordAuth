@@ -12,6 +12,7 @@ class DiscordAuth extends AuthProvider
 	 * @var Discord
 	 */
 	private $provider;
+	private $guildId;
 
 	/**
 	 * @inheritDoc
@@ -28,6 +29,7 @@ class DiscordAuth extends AuthProvider
 			'clientSecret' => $clientSecret,
 			'redirectUri' => $redirectUri
 		]);
+		$this->guildId = $extensionData[0];
 	}
 
 	/**
@@ -35,7 +37,7 @@ class DiscordAuth extends AuthProvider
 	 */
 	public function login(?string &$key, ?string &$secret, ?string &$authUrl): bool
 	{
-		$authUrl = $this->provider->getAuthorizationUrl(['scope' => ['identify']]);
+		$authUrl = $this->provider->getAuthorizationUrl(['scope' => ['identify', 'guilds']]);
 
 		$secret = $this->provider->getState();
 
@@ -64,12 +66,41 @@ class DiscordAuth extends AuthProvider
 
 		try {
 			$token = $this->provider->getAccessToken('authorization_code', ['code' => $_GET['code']]);
-			$user = $this->provider->getResourceOwner($token);
 
+			$url = 'https://discord.com/api/users/@me/guilds';
+			$options = array(
+				'http' => array (
+					'header' => "Authorization: Bearer " . $token->getToken() . "\r\n",
+					'method' => 'GET'
+				)
+			);
+			$context = stream_context_create($options);
+			$result = file_get_contents($url, false, $context);
+			if ($result === FALSE) {
+				file_put_contents('php://stderr', print_r("failed to get guild information\n", TRUE));
+				return false;
+			}
+
+			$isGuildMember = False;
+			$input = json_decode($result, TRUE);
+			foreach ($input as $value) {
+				if ($this->guildId === (int)$value["id"]) {
+					$isGuildMember = True;
+					break;
+				}
+			}
+
+			if (!$isGuildMember) {
+				file_put_contents('php://stderr', print_r("not a guild member\n", TRUE));
+				return false;
+			}
+
+			$user = $this->provider->getResourceOwner($token);
 			return [
 				'name' => $user->getId(),
 				'realname' => $user->getUsername(),
 				'email' => $user->getId() . '@discord.com',
+				'isGuildMember' => $isGuildMember,
 			];
 		} catch (\Exception $e) {
 			return false;

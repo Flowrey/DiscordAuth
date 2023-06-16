@@ -28,7 +28,6 @@
 	},
 	"Hooks": {
 		"GetPreferences": "main",
-		"PluggableAuthUserAuthorization": "main",
 		"LoadExtensionSchemaUpdates": "SchemaUpdater"
 	},
 	"HookHandlers": {
